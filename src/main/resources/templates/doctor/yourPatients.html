@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--Lista dei pazienti di uno specifico dottore, riconosciuti e assegnati tramite codice del medico-->
+<head>
+    <meta charset="UTF-8">
+    <title>Pazienti</title>
+</head>
+<style>
+      .error {
+    color: red;
+  }
+#patientTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+#patientTable td, #patientTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#patientTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#patientTable tr:hover {background-color: #ddd;}
+
+#patientTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+<h1>Pazienti</h1>
+<div class="patientlist">
+
+    <h1>I tuoi pazienti</h1>
+
+    <table id="patientTable">
+        <thead>
+        <tr>
+            <th scope="col">Cognome Nome</th>
+            <th scope="col">Messaggi non letti</th>
+            <th scope="col">Diario</th>
+            <th scope="col">Cartella</th>
+            <th scoper="col">Prossime visite</th>
+            <th scope="col">Calcola Activity Index</th>
+            <th scope="col">Contatta il paziente</th>
+        </tr>
+        </thead>
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.surname}">Patient's Surname and Name</td>
+            <td><a th:href="@{'message/NotReadMessagesPerPatient/' + ${patient.id}}" th:fileName="${patient.id}" id="btnCheck"
+                   title="Read messages">Leggi</a>
+            </td>
+            <td><a th:href="@{'patientDiary/diaryEntriesPerPatient/' + ${patient.id}}" th:fileName="${patient.id}" id="btnDiary"
+                   title="Read messages">Leggi</a>
+            </td>
+            <td><a th:href="@{'reports/reportsPerPatient/' + ${patient.id}}" th:fileName="${patient.id}" id="btnRepo"
+                   title="Read messages">Apri</a>
+            </td>
+            <td><a th:href="@{'doctorAgenda/appointmentPerPatient/' + ${patient.id}}" th:fileName="${patient.id}" id="btnAppontment"
+                   title="Read messages">Apri</a>
+            </td>
+            <td><a th:href="@{'activityIndex/activityIndexFormPerPatient/' + ${patient.id}}" th:fileName="${patient.id}" id="btnActivityIndex"
+                   title="Read messages">Calcola</a>
+            </td>
+            <td th:text="${patient.user.email}">Patient's email</td>
+        </tr>
+    </table>
+</div>
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+<div>
+    <p>Calcola gli indici <a href="/doctor/activityIndex/AIForm.html">qui</a>.</p>
+</div>
+</body>
+</html>

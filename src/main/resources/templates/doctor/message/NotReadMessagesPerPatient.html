@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Messages Board</title>
+</head>
+<style>
+            .error {
+    color: red;
+  }
+#messageTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+}
+
+#messageTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+#messageTable td, #messageTable th, #messageTable td, #messageTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#messageTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#messageTable tr:hover {background-color: #ddd;}
+
+#messageTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#messageTable tr:hover {background-color: #ddd;}
+
+#messageTable th, #messageTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+<h1>Messaggi non ancora letti</h1>
+<div th:if="${messages.size() > 0}">
+    <table id="messageTable">
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Message</th>
+            <th scope="col">Segna come letto</th>
+            <th scope="col">Rispondi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="message : ${messages}">
+            <td>[[${message.sendingDate}]]</td>
+            <td>[[${message.messageBody}]]</td>
+            <td>
+                <form th:method="PUT" th:action="|/doctor/message/checkLikeRead/*{message.id}|">
+                    <input type="submit" value="CheckLikeRead">
+                </form>
+            </td>
+            <td>
+                <form th:method="POST" th:action="|/doctor/message/sendAMessageTo/*{message.id}|">
+                    <label for="messageBody">Body</label>:
+                    <input type="text" id="messageBody" name="messageBody" autofocus="autofocus" />
+                    <input type="submit" value="Answ">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}"
+        role="alert">
+    ERRORE:
+    [[${errorMessage}]]
+</div>
+<br>
+<div
+        th:if="${messageAlert != null}"
+        class="alert"
+        role="alert">
+    [[${messageAlert}]]
+</div>
+<div th:unless="${messages.size() > 0}">
+    <span>Nessun messaggio in sospeso</span>
+</div>
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+    <p>Ritorna ai tuoi <a href="/doctor/yourPatients">pazienti</a>.</p>
+</div>
+</body>
+</html>

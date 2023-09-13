@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Elenco messaggi non letti</title>
+</head>
+<style>
+  .error {
+    color: red;
+  }
+#notReadMessageTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#notReadMessageTable td, #notReadMessageTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#notReadMessageTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#notReadMessageTable tr:hover {background-color: #ddd;}
+
+#notReadMessageTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+<h1>Qui di seguito i messaggi non ancora letti: </h1>
+<div th:if="${messages.size() > 0}">
+  <table id="notReadMessageTable">
+    <thead>
+    <tr>
+      <th scope="col">Data</th>
+      <th scope="col">Messaggio</th>
+      <th scope="col">Segna come letto</th>
+      <th scope="col"> /// </th>
+      <th scope="col">Rispondi</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="message : ${messages}">
+      <td>[[${message.sendingDate}]]</td>
+      <td>[[${message.messageBody}]]</td>
+      <td>
+        <form th:method="PUT" th:action="|/nurse/message/checkLikeRead/*{message.id}|">
+          <input type="submit" value="CheckLikeRead">
+        </form>
+      </td>
+      <td></td>
+      <td>
+        <form th:method="POST" th:action="|/nurse/message/sendAMessageTo/*{message.id}|">
+          <label for="messageBody">Body</label>:
+          <input type="text" id="messageBody" name="messageBody" autofocus="autofocus" />
+          <input type="submit" value="Answ">
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}"
+        role="alert">
+  ERRORE:
+  [[${errorMessage}]]
+</div>
+<br>
+<div
+        th:if="${messageAlert != null}"
+        class="alert"
+        role="alert">
+  [[${messageAlert}]]
+</div>
+<div th:unless="${messages.size() > 0}">
+  <span>Nessun messaggio ancora da leggere per questo paziente.</span>
+</div>
+<div>
+  <p>Torna alla pagina principale da <a href="/nurse/listOfPatients">qui</a>.</p>
+</div>
+
+</body>
+</html>

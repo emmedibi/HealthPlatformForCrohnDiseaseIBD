@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Diary</title>
+</head>
+<style>
+  #informazioni {
+    font-style: italic;
+  }
+    .error {
+    color: red;
+  }
+#diaryEntryTable, #diaryEntryDraftTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#diaryEntryTable td, #diaryEntryTable th, #diaryEntryDraftTable td, #diaryEntryDraftTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#diaryEntryTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#diaryEntryTable tr:hover {background-color: #ddd;}
+
+#diaryEntryDraftTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#diaryEntryDraftTable tr:hover {background-color: #ddd;}
+
+#diaryEntryTable th, #diaryEntryDraftTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+<h1> Il tuo diario</h1>
+<h2>Pagine di diario pubblicate e visibili dal personale sanitario</h2>
+<div th:if="${diaryEntries.size() > 0}">
+  <table id="diaryEntryTable">
+    <thead>
+    <tr>
+      <th scope="col">Nome pagina</th>
+      <th scope="col">Mostra</th>
+      <th scope="col">Azioni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="diaryEntry : ${diaryEntries}">
+      <td>[[${#dates.format(diaryEntry.date, 'dd/MMM/yyyy')}]]</td>
+      <td>
+        <a th:href="@{'/patient/showDiaryEntry/' + ${diaryEntry.id}}" th:fileName="${diaryEntry.id}" id="btnShow"
+           title="Show the published diary entry">Mostra</a>
+      </td>
+      <td>
+        <form th:method="DELETE" th:action="|/diary/deleteDiaryEntry/*{diaryEntry.id}|">
+          <input type="submit" value="Delete">
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<h2>Pagine di diario in bozza e non visibili dal personale sanitario</h2>
+<div th:if="${diaryEntryDrafts.size() > 0}">
+  <table id="diaryEntryDraftTable">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">File Name</th>
+      <th scope="col">Link</th>
+      <th scope="col">Azioni</th>
+      <th scope="col">Altre azioni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="diaryEntryDraft : ${diaryEntryDrafts}">
+      <td>[[${#dates.format(diaryEntryDraft.date, 'dd/MMM/yyyy')}]]</td>
+      <td>
+        <a th:href="@{'/diary/checkDiaryEntry/' + ${diaryEntryDraft.id}}" th:fileName="${diaryEntryDraft.id}" id="btnCheck"
+          title="Publish the diary entry"> Modifica</a>
+      </td>
+      <td>
+        <form th:method="PUT" th:action="|/diary/publishDiaryEntry/*{diaryEntryDraft.id}|">
+          <input type="submit" value="Pubblica">
+        </form>
+      </td>
+      <td>
+        <form th:method="DELETE" th:action="|/diary/deleteDiaryEntry/*{diaryEntryDraft.id}|">
+          <input type="submit" value="Delete">
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!--    Messaggio se nessun esame del sangue è registrato a sistema per il paziente loggato.-->
+<div th:unless="${diaryEntries.size() > 0}">
+  <span>Non hai ancora compilato il tuo diario.</span>
+</div>
+<!--    link di ritorno alla pagina principale-->
+<div
+        th:if="${message != null}"
+        class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+        role="alert">
+  [[${message}]]
+</div>
+<div id="informazioni">
+  <p>Tenere traccia dei tuoi sintomi è importante. Compila con costanza il tuo diario, inserendo i dati più significativi.</p>
+  <p>Il tuo diario sarà visibile al tuo medico, che potrà inviarti un messaggio nel caso lo ritenga opportuno.</p>
+  <p>Il diario non è un mezzo di comunicazione con il medico, ma uno strumento utile al controllo dei sintomi e alla crescita della consapevolezza
+    <br> del paziente circa la sua malattia e gli effetti che essa ha sulla sua vita.
+    <br>Per questo il diario è un mezzo informale ma estremamente importante ai fini della trattazione dei sintomi del paziente.</p>
+  <p>Ti ricordiamo di rivolgerti subito al tuo medico nel caso riscontrassi dei peggioramenti dei tuoi sintomi o l'insorgenza di sintomi anomali.</p>
+</div>
+<div>
+  <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

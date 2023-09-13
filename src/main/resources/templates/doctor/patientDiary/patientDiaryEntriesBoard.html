@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Diary Board</title>
+</head>
+<body>
+<h1>Diario del paziente</h1>
+<div class="patientDiaryEntryList" th:if="${diaryEntries.size() > 0}">
+  <table>
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Entry's date</th>
+      <th scope="col">Diarrhea</th>
+      <th scope="col">Bowel Movement</th>
+      <th scope="col">Fatigue</th>
+      <th scope="col">Abdominal pain</th>
+      <th scope="col">Blood stool</th>
+      <th scope="col">Patient's notes</th>
+      <th scope="col">Send a message to the Patient</th>
+    </tr>
+    </thead>
+    <tr th:each="diaryEntry : ${diaryEntries}">
+      <td th:text="${diaryEntry.date}">Entry date</td>
+      <td th:text="${diaryEntry.diarrhea}"> Diarrhea </td>
+      <td th:text="${diaryEntry.numberOfBowelMovement}">Entry date</td>
+      <td th:text="${diaryEntry.fatigue}"> Fatigue </td>
+      <td th:text="${diaryEntry.abdominalPain}"> Abdominal Pain </td>
+      <td th:text="${diaryEntry.bloodStool}">Blood Stool</td>
+      <td th:text="${diaryEntry.note}"> Note </td>
+      <td>
+        <form th:method="POST" th:action="|/doctor/message/sendAMessageToPatient/*{diaryEntry.id}|">
+          <label for="messageBody">Body</label>:
+          <input type="text" id="messageBody" name="messageBody" autofocus="autofocus" />
+          <input type="submit" value="Answ">
+        </form>
+      </td>
+    </tr>
+  </table>
+</div>
+<div th:unless="${diaryEntries.size() > 0}">
+  <span>Nessuna pagina di diario compilata</span>
+</div>
+<div>
+  <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

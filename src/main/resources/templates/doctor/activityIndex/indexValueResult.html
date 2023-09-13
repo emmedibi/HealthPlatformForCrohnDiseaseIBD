@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ActivityIndexResultForPatient</title>
+    <style>
+
+    td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+
+    tr:hover {background-color: #ddd;}
+
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+    </style>
+</head>
+<body>
+<h1>Activity Index</h1>
+<h3>Risultato del calcolo:</h3>
+<br>
+<div
+        th:if="${CDAIValue!=-1}">
+    Crohn Disease Activity Index: [[${CDAIValue}]] pt
+</div>
+<br>
+<br>
+<div
+        th:if="${HBIValue!=-1}">
+    Harvey Bradshaw Index: [[${HBIValue}]] pt
+</div>
+<br>
+<br>
+<div>
+    <h3>Crohn's Disease Activity Index Scale</h3>
+<table>
+    <thead>
+    <th scope="col">Punteggio</th>
+    <th scope="col">Significato</th>
+    </thead>
+    <tr>
+        <td>0 - 149 punti</td>
+        <td>Remissione asintomatica</td>
+    </tr>
+    <tr>
+        <td>150 - 220 punti</td>
+        <td>Morbo di Crohn da lievemente a moderatamente attivo</td>
+    </tr>
+    <tr>
+        <td>221 - 450 punti</td>
+        <td>Morbo di Crohn da moderatamente a gravemente attivo</td>
+    </tr>
+    <tr>
+        <td>451 - 11000 punti</td>
+        <td>Da malattia gravemente attiva a fulminante</td>
+    </tr>
+</table>
+</div>
+<div>
+    <h3>Harvey-Bradshaw Index Scale</h3>
+    <table>
+        <thead>
+        <th scope="col">Punteggio</th>
+        <th scope="col">Significato</th>
+        </thead>
+        <tr>
+            <td>< 5</td>
+            <td>Remissione</td>
+        </tr>
+        <tr>
+            <td>5 - 7</td>
+            <td>Morbo di Crohn lievemente  attivo</td>
+        </tr>
+        <tr>
+            <td>8 - 16</td>
+            <td>Morbo di Crohn moderatamente attivo</td>
+        </tr>
+        <tr>
+            <td> <16 </td>
+            <td>Morbo di Crohn gravemente attivo</td>
+        </tr>
+    </table>
+</div>
+<p>Torna ai <a href="/doctor/yourPatients"> tuoi pazienti </a></p>
+</body>
+</html>

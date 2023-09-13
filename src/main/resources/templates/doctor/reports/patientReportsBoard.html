@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Reports Board</title>
+</head>
+<style>
+      .error {
+    color: red;
+  }
+#reportBoardTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+#BloodPatientBoard {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+#reportBoardTable td, #reportBoardTable th, #BloodPatientBoard td, #BloodPatientBoard th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#reportBoardTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#reportBoardTable tr:hover {background-color: #ddd;}
+
+#BloodPatientBoard tr:nth-child(even){background-color: #f2f2f2;}
+
+#BloodPatientBoard tr:hover {background-color: #ddd;}
+
+#reportBoardTable th, #BloodPatientBoard th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+<h1>Cartella del paziente</h1>
+<div th:if="${files.size() > 0}">
+    <h2>PDF Reports</h2>
+    <table id="reportBoardTable">
+        <thead>
+        <tr>
+            <th scope="col">File Name</th>
+            <th scope="col">Link</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="file : ${files}">
+                <td>[[${file.name}]]</td>
+                <td><a th:href="@{${file.url}}">Download</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div th:unless="${files.size() > 0}">
+    <span>Nessun file PDF caricato per questo paziente</span>
+</div>
+<h2>Blood Exam Reports</h2>
+<div th:if="${bloodTestReports.size() > 0}">
+    <table id="BloodPatientBoard">
+        <thead>
+        <tr>
+            <th scope="col">File Name</th>
+            <th scope="col">Examination Date</th>
+            <th scope="col">Calprotectin</th>
+            <th scope="col">Ves</th>
+            <th scope="col">Lymphocytes</th>
+            <th scope="col">Neutrophils</th>
+            <th scope="col">Platelets</th>
+            <th scope="col">CPR</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bloodTestReport : ${bloodTestReports}">
+            <td><b>[[${bloodTestReport.description}]]</b></td>
+<!--            <td>[[${bloodTestReport.examinationDate}]]</td>-->
+            <td>[[${#dates.format(bloodTestReport.examinationDate, 'dd/MMM/yyyy')}]]</td>
+            <td>[[${bloodTestReport.calprotectin}]]</td>
+            <td>[[${bloodTestReport.ves}]]</td>
+            <td>[[${bloodTestReport.lymphocytes}]]</td>
+            <td>[[${bloodTestReport.neutrophils}]]</td>
+            <td>[[${bloodTestReport.platelets}]]</td>
+            <td>[[${bloodTestReport.cpr}]]</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:unless="${bloodTestReports.size() > 0}">
+    <span>Nessun report su esami del sangue caricato per questo paziente</span>
+</div>
+<div
+        th:if="${message != null}"
+        class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+        role="alert">
+    [[${message}]]
+</div>
+<h2>Carica un file</h2>
+<p>In questa form, carica solo referti in formato <i>.pdf</i> riferiti a visite o esami del sangue.</p>
+<br>
+<form
+        id="uploadForm"
+        method="post"
+        th:action="@{|/doctor/reports/upload/*{patientId}|}"
+        enctype="multipart/form-data">
+    <input id="input-file" type="file" name="file" />
+    <button type="submit">
+        Upload
+    </button>
+</form>
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

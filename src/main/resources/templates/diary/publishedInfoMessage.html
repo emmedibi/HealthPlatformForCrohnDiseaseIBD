@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Published</title>
+</head>
+<body>
+<h1>Informazioni sulla tua pagina di diario</h1>
+<p>La tua pagina di diario sara' ora visibile anche al medico.</p>
+<p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+
+<div
+        th:if="${message != null}">
+    [[${message}]]
+</div>
+</body>
+</html>

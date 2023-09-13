@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Diary</title>
+</head>
+<style>
+  .error {
+    color: red;
+  }
+#patientDiary {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#patientDiary td, #patientDiary th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#patientDiary tr:nth-child(even){background-color: #f2f2f2;}
+
+#patientDiary tr:hover {background-color: #ddd;}
+
+#patientDiary th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+<h1>Diario del paziente</h1>
+<div class="patientDiaryEntryList"
+     th:if="${diaryEntries.size() > 0}">
+<!--Tabella del diario di un paziente-->
+  <table id="patientDiary">
+    <thead>
+    <tr>
+      <th scope="col">Entry's date</th>
+      <th scope="col">Diarrhea</th>
+      <th scope="col">Bowel Movement</th>
+      <th scope="col">Fatigue</th>
+      <th scope="col">Abdominal pain</th>
+      <th scope="col">Blood stool</th>
+      <th scope="col">Patient's notes</th>
+      <th scope="col">Send a message to the Patient</th>
+    </tr>
+    </thead>
+    <tr th:each="diaryEntry : ${diaryEntries}">
+      <td th:text="${diaryEntry.date}">Entry date</td>
+      <td th:switch="${diaryEntry.diarrhea}">
+        <span th:case="true">SI</span>
+        <span th:case="false">NO</span>
+      </td>
+<!--      <td th:text="${diaryEntry.diarrhea}"> Diarrhea </td>-->
+      <td th:text="${diaryEntry.numberOfBowelMovement}">BowelMovements</td>
+      <td th:switch="${diaryEntry.fatigue}">
+        <span th:case="true">SI</span>
+        <span th:case="false">NO</span>
+      </td>
+<!--      <td th:text="${diaryEntry.fatigue}"> Fatigue </td>-->
+      <td th:switch="${diaryEntry.abdominalPain}">
+        <span th:case="true">SI</span>
+        <span th:case="false">NO</span>
+      </td>
+<!--      <td th:text="${diaryEntry.abdominalPain}"> Abdominal Pain </td>-->
+      <td th:switch="${diaryEntry.bloodStool}">
+        <span th:case="true">SI</span>
+        <span th:case="false">NO</span>
+      </td>
+<!--      <td th:text="${diaryEntry.bloodStool}">Blood Stool</td>-->
+      <td th:text="${diaryEntry.note}"> Note </td>
+      <td>
+        <form th:method="POST" th:action="|/nurse/message/sendAMessageToPatient/*{diaryEntry.id}|">
+          <label for="messageBody">Body</label>:
+          <input type="text" id="messageBody" name="messageBody" autofocus="autofocus" />
+          <input type="submit" value="Answ">
+        </form>
+      </td>
+    </tr>
+  </table>
+</div>
+<!--Se non ci sono note sul diario, viene recuperato questo messaggio-->
+<div th:unless="${diaryEntries.size() > 0}">
+  <span>Nessuna nota di diario trovata</span>
+</div>
+<!--Link per tornare alla pagina principale-->
+<div>
+  <p>Torna alla pagina principale da <a href="/nurse/listOfPatients">qui</a>.</p>
+</div>
+</body>
+</html>

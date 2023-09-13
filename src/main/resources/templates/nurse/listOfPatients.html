@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Patients</title>
+</head>
+<style>
+  .error {
+    color: red;
+  }
+#patientTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#patientTable td, #patientTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#patientTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#patientTable tr:hover {background-color: #ddd;}
+
+#patientTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+#paginaPrincipale {
+margin-left: 30px;
+}
+</style>
+<body>
+<div class="patientlist">
+
+  <h2>List of Users</h2>
+<div th:if="${patients.size() > 0}">
+  <table id="patientTable">
+      <thead >
+      <tr>
+          <th scope="col">Cognome Nome</th>
+          <th scope="col">Medico di riferimento</th>
+          <th scope="col">Messaggi non letti</th>
+          <th scope="col">Diario</th>
+          <th scope="col">Contatta il paziente</th>
+      </tr>
+      </thead>
+    <tr th:each="patient : ${patients}">
+      <td th:text="${patient.surname + ' ' + patient.name}">Patient's Surname and Name</td>
+        <td th:text="${patient.doctor.surname + ' ' + patient.doctor.name}"> Doctor's Surname and Name </td>
+        <td><a th:href="@{'message/NotReadPatientMessages/' + ${patient.id}}" th:fileName="${patient.id}" id="btnCheck"
+           title="Read messages">Leggi</a>
+        </td>
+        <td><a th:href="@{'patientDiary/patientDiaryEntries/' + ${patient.id}}" th:fileName="${patient.id}" id="btnDiary"
+               title="Read messages">Leggi</a>
+        </td>
+        <td th:text="${patient.user.email}">Patient's email</td>
+    </tr>
+  </table>
+</div>
+</div>
+<!--    Messaggio se nessun paziente è registrato a sistema per il paziente loggato.-->
+<div th:unless="${patients.size() > 0}">
+    <span>Non ci sono pazienti per questa struttura.</span>
+</div>
+<!--    link di ritorno alla pagina principale-->
+<div id="paginaPrincipale">
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

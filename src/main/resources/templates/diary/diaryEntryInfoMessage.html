@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Info</title>
+</head>
+<body>
+<h1>Informazioni sul tuo Diario</h1>
+<div
+th:if="${message != null}">
+[[${message}]]
+</div>
+<div
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}"
+        role="alert">
+    ERRORE:
+    [[${errorMessage}]]
+</div>
+<p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</body>
+</html>

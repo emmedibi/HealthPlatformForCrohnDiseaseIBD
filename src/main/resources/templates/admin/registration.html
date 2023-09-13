@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Registra un nuovo utente</title>
+</head>
+<style>
+    body {
+    margin-left : 25px;
+    }
+    .error {
+    color : red;
+    }
+    input {
+    margin-bottom: 5px;
+    }
+    label {
+        display: inline-block;
+        width: 80px;
+        text-align: right;
+      }
+
+</style>
+
+<body>
+<h1> Registration Form</h1>
+<br>
+<div class="error"
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}"
+        role="alert">
+  ERRORE:
+  [[${errorMessage}]]
+</div>
+<br>
+<br />
+<!--<p th:if="${param.error}" class="error">Wrong user or password</p>-->
+<form th:action="@{/registration}" method="post">
+  <label for="name">Nome</label>:
+  <input type="text" id="name" name="name" autofocus="autofocus" /> <br />
+  <label for="username">Cognome</label>:
+  <input type="text" id="surname" name="surname" autofocus="autofocus" /> <br />
+  <label for="username">Email</label>:
+  <input type="text" id="email" name="email" autofocus="autofocus" /> <br />
+  <label for="username">Username</label>:
+  <input type="text" id="username" name="username" placeholder="ncognome" autofocus="autofocus" /> <br />
+  <br>
+  <label>Ruolo:</label>
+  <br>
+  <label>Admin &emsp;</label>
+  <input type="radio" id="role_admin" name="radioRole" value="ROLE_ADMIN"/>
+  <label>Nurse &emsp;</label>
+  <input type="radio" id="role_nurse" name="radioRole" value="ROLE_NURSE"/>
+  <br>
+  <br>
+  <label for="password">Password</label>:
+  <input type="password" id="password" name="password" /> <br />
+  <input type="submit" value="Registration" />
+</form>
+<br>
+<div>
+  <p>Torna alla pagina principale da <a href="/admin/adminPage.html">qui</a>.</p>
+</div>
+</body>
+</html>

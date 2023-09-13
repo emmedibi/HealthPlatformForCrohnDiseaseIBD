@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Esami del sangue</title>
+</head>
+<style>
+  .error {
+    color: red;
+  }
+#bloodExamTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#bloodExamTable td, #bloodExamTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#bloodExamTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#bloodExamTable tr:hover {background-color: #ddd;}
+
+#bloodExamTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+    <h1>Elenco esami del sangue</h1>
+<!--    eventuali messaggi dal backend-->
+    <div class="error"
+         th:if="${message != null}">
+        [[${message}]]
+    </div>
+<!--    TABELLA DEGLI ESAMI DEL SANGUE-->
+    <div th:if="${bloodTestReports.size() > 0}">
+        <table id="bloodExamTable">
+            <thead>
+            <tr>
+                <th scope="col">File Name</th>
+                <th scope="col">Examination Date</th>
+                <th scope="col">Calprotectin [mg/Kg]</th>
+                <th scope="col">Ves [mm/h]</th>
+                <th scope="col">Lymphocytes [10^3/μL]</th>
+                <th scope="col">Neutrophils [10^3/μL]</th>
+                <th scope="col">Platelets [10^3/μL]</th>
+                <th scope="col">CPR [mg/L]</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bloodTestReport : ${bloodTestReports}">
+                <td><b>[[${bloodTestReport.description}]]</b></td>
+                <td>[[${#dates.format(bloodTestReport.examinationDate, 'dd/MMM/yyyy')}]]</td>
+                <td>[[${bloodTestReport.calprotectin}]]</td>
+                <td>[[${bloodTestReport.ves}]]</td>
+                <td>[[${bloodTestReport.lymphocytes}]]</td>
+                <td>[[${bloodTestReport.neutrophils}]]</td>
+                <td>[[${bloodTestReport.platelets}]]</td>
+                <td>[[${bloodTestReport.cpr}]]</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<!--    Messaggio se nessun esame del sangue è registrato a sistema per il paziente loggato.-->
+    <div th:unless="${bloodTestReports.size() > 0}">
+        <span>Non hai ancora caricato nessun esame del sangue.</span>
+    </div>
+<!--    link di ritorno alla pagina principale-->
+    <div>
+        <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+    </div>
+</body>
+</html>

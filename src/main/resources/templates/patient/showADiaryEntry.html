@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>La tua pagina di diario</title>
+</head>
+<style>
+.error {
+color: red;
+}
+#patientDiary {
+font-family: Arial, Helvetica, sans-serif;
+border-collapse: collapse;
+width: 100%;
+}
+
+#patientDiary td, #patientDiary th {
+border: 1px solid #ddd;
+padding: 8px;
+}
+
+#patientDiary tr:nth-child(even){background-color: #f2f2f2;}
+
+#patientDiary tr:hover {background-color: #ddd;}
+
+#patientDiary th {
+padding-top: 12px;
+padding-bottom: 12px;
+text-align: left;
+color: black;
+}
+</style>
+<body>
+<h1>La tua pagina di diario</h1>
+<div th:if="${diaryEntry != null}">
+<table id="patientDiary">
+    <thead>
+    <tr>
+        <th scope="col">Entry's date</th>
+        <th scope="col">Diarrhea</th>
+        <th scope="col">Bowel Movement</th>
+        <th scope="col">Fatigue</th>
+        <th scope="col">Abdominal pain</th>
+        <th scope="col">Blood stool</th>
+        <th scope="col">Patient's notes</th>
+    </tr>
+    </thead>
+    <tr>
+        <td th:text="${diaryEntry.date}">Entry date</td>
+        <td th:switch="${diaryEntry.diarrhea}">
+            <span th:case="true">SI</span>
+            <span th:case="false">NO</span>
+        </td>
+        <!--      <td th:text="${diaryEntry.diarrhea}"> Diarrhea </td>-->
+        <td th:text="${diaryEntry.numberOfBowelMovement}">BowelMovements</td>
+        <td th:switch="${diaryEntry.fatigue}">
+            <span th:case="true">SI</span>
+            <span th:case="false">NO</span>
+        </td>
+        <!--      <td th:text="${diaryEntry.fatigue}"> Fatigue </td>-->
+        <td th:switch="${diaryEntry.abdominalPain}">
+            <span th:case="true">SI</span>
+            <span th:case="false">NO</span>
+        </td>
+        <!--      <td th:text="${diaryEntry.abdominalPain}"> Abdominal Pain </td>-->
+        <td th:switch="${diaryEntry.bloodStool}">
+            <span th:case="true">SI</span>
+            <span th:case="false">NO</span>
+        </td>
+        <!--      <td th:text="${diaryEntry.bloodStool}">Blood Stool</td>-->
+        <td th:text="${diaryEntry.note}"> Note </td>
+    </tr>
+</table>
+</div>
+<div
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}">
+    ERRORE:
+    [[${errorMessage}]]
+</div>
+<div>
+    <p>Elenco delle tue pagine di diario <a href="/diary/diaryEntries">qui</a>.</p>
+</div>
+</body>
+</html>

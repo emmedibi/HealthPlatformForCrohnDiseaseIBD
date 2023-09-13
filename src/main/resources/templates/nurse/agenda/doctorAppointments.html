@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Appuntamenti</title>
+</head>
+<style>
+  .error {
+    color: red;
+  }
+#doctorAgendaTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#doctorAgendaTable td, #doctorAgendaTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#doctorAgendaTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#doctorAgendaTable tr:hover {background-color: #ddd;}
+
+#doctorAgendaTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+<h1>Appuntamenti medico</h1>
+<!--Tabella appuntamenti medico-->
+<div th:if="${appointments.size() > 0}">
+    <table id="doctorAgendaTable">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Data</th>
+            <th scope="col">Paziente</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appointment : ${appointments}">
+            <td>[[${appointment.text}]]</td>
+            <td>[[${appointment.appointmentDate}]]</td>
+            <td>[[${appointment.patient.surname}]] [[${appointment.patient.name}]]</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--Eventuali messaggi di errore-->
+<div
+        th:if="${message != null}"
+        class="alert">
+    [[${message}]]
+</div>
+<!--Se non ci sono appuntamenti viene mostrato questo messaggio-->
+<div th:unless="${appointments.size() > 0}">
+    <span>Nessun appuntamento trovato</span>
+</div>
+<!--Torna alla pagina principale-->
+<div>
+    <p>Torna alla pagina principale da  <a href="/nurse/listOfDoctors">qui</a>.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update your Diary Entry</title>
+</head>
+<body>
+<h2>Update your Diary Entry</h2>
+<div>
+    <p>Nota del giorno: [[${#dates.format(diaryEntry.date, 'dd/MMM/yyyy')}]]</p>
+</div>
+<form th:action="@{/diary/updateDiaryEntryDraft/{id}(id=${diaryEntry.id})}" method="post">
+    <input type="hidden" name="_method" value="put"/>
+    <input type="hidden" id="date" name="date" th:field="*{diaryEntry.date}" autofocus="autofocus" /> <br />
+    <label for="note">Note</label>:
+    <input type="text" id="note" name="note" th:field="*{diaryEntry.note}" autofocus="autofocus" /> <br />
+    <ul>
+        <li>
+            <span>Diarrhea:</span>
+            <input type="radio" id="yes_d" name="diarrhea" value="true" checked>
+            <label for="yes_d">Yes</label>
+            <input type="radio" id="no_d" name="diarrhea" value="false" checked>
+            <label for="no_d">No</label>
+        </li>
+        <li>
+            <span>Blood in stool:</span>
+            <input type="radio" id="yes_blood" name="bloodStool" value="true" checked>
+            <label for="yes_blood">Yes</label>
+            <input type="radio" id="no_blood" name="bloodStool" value="false" checked>
+            <label for="no_blood">No</label>
+        </li>
+        <li>
+            <span>Abdominal pain:</span>
+            <input type="radio" id="yes_abdominalPain" name="abdominalPain" value="true" checked>
+            <label for="yes_abdominalPain">Yes</label>
+            <input type="radio" id="no_abdominalPain" name="abdominalPain" value="false" checked>
+            <label for="no_abdominalPain">No</label>
+        </li>
+        <li>
+            <span>Fatigue:</span>
+            <input type="radio" id="yes_fatigue" name="fatigue" value="true" checked>
+            <label for="yes_fatigue">Yes</label>
+            <input type="radio" id="no_fatigue" name="fatigue" value="false" checked>
+            <label for="no_fatigue">No</label>
+        </li>
+    </ul>
+    <label for="numberOfBowelMovement">How many bowel movements you had in this date?</label>:
+    <input type="number" id="numberOfBowelMovement" name="numberOfBowelMovement" th:field="*{diaryEntry.numberOfBowelMovement}" autofocus="autofocus" /> <br />
+    <input type="hidden" th:field="*{diaryEntry.id}">
+    <br>
+    <br>
+    <input type="submit" name="action" value="Save"/>
+</form>
+<div>
+    <p>Elenco delle tue pagine di diario <a href="diaryEntries">qui</a>.</p>
+</div>
+<p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</body>
+</html>

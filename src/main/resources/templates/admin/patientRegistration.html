@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Registrazione nuovo paziente</title>
+</head>
+<style>
+    body {
+    margin-left : 25px;
+    }
+    .error {
+    color : red;
+    }
+    input {
+    margin-bottom: 5px;
+    }
+    label {
+        display: inline-block;
+        width: 80px;
+        text-align: right;
+      }
+
+</style>
+
+<body>
+<h1> Patient Registration Form</h1>
+<br />
+<div    class="error"
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}"
+        role="alert">
+  ERRORE:
+  [[${errorMessage}]]
+</div>
+<br>
+<form th:action="@{/patientRegistration}" method="post">
+  <label for="name">Nome*</label>:
+  <input type="text" id="name" name="name" autofocus="autofocus" /> <br />
+  <label for="surname">Cognome*</label>:
+  <input type="text" id="surname" name="surname" autofocus="autofocus" /> <br />
+  <label for="email">Email*</label>:
+  <input type="text" id="email" name="email" autofocus="autofocus" /> <br />
+  <label for="username">Username*</label>:
+  <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+  <label for="codiceFiscale">Codice fiscale*</label>:
+  <!--  <input type="text" id="role" name="role" autofocus="autofocus" /> <br />-->
+  <input type="text" id="codiceFiscale" name="CF" autofocus="autofocus" /> <br />
+  <label for="dateOfBirth">Data di nascita*</label>:
+  <input type="date" id="dateOfBirth" name="DOB" autofocus="autofocus" /> <br />
+  <label for="address">Indirizzo*</label>:
+  <input type="text" id="address" name="address" autofocus="autofocus" /> <br />
+  <label for="cityOfBirth">Citt&aacute di nascita*</label>:
+  <input type="text" id="cityOfBirth" name="cityOfBirth" autofocus="autofocus" /> <br />
+  <label for="telephone">Telefono*</label>:
+  <input type="text" id="telephone" name="telephone" autofocus="autofocus" /> <br />
+  <label>Scegli un dottore*</label>
+  <br />
+    <input type="radio" name="doctor" th:each="doctor : ${doctors}"
+           th:text="${doctor.surname + ' ' + doctor.name}" th:value="${doctor.id}">
+  <br />
+  <br />
+  <label for="password">Password*</label>:
+  <input type="password" id="password" name="password" /> <br />
+  <input type="submit" value="Registration" />
+</form>
+<div>
+  <p>Torna alla pagina principale da <a href="/admin/adminPage.html">qui</a>.</p>
+</div>
+</body>
+</html>

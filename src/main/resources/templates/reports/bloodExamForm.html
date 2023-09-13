@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Blood Exam Form</title>
+</head>
+<style>
+  body {
+    margin-left : 25px;
+    }
+  .error {
+    color: red;
+  }
+  input {
+    margin-bottom: 5px;
+    }
+    label {
+        display: inline-block;
+        width: 100px;
+        text-align: left;
+      }
+</style>
+<body>
+  <h1> Patient's Blood Exams Form</h1>
+  <br />
+  <div    class="error"
+          th:if="${errorMessages != null}"
+          th:each="errorMessage : ${errorMessages}"
+          role="alert">
+    ERRORE:
+    [[${errorMessage}]]
+  </div>
+  <br>
+  <br />
+  <form th:action="@{/reports/bloodExamUpload}" method="post">
+    <label for="description">Descrizione</label>:
+    <input type="text" id="description" name="description" autofocus="autofocus" /> <br />
+    <label for="examinationDate">Data svolgimento esame</label>:
+    <input type="date" id="examinationDate" name="examinationDate" autofocus="autofocus" /> <br />
+    <label for="ves">VES (mm/h)</label>:
+    <input type="number" step="0.01" id="ves" name="ves" placeholder="0,0 - 15,0" autofocus="autofocus" /> <br />
+    <label for="cpr">Proteina C reattiva (mg/L)</label>:
+    <input type="number" step="0.01" id="cpr" name="cpr" placeholder="0,0 - 10,0" autofocus="autofocus" /> <br />
+    <label for="calprotectin">Calprotectina (mg/Kg)</label>:
+    <input type="number" id="calprotectin" name="calprotectin" placeholder="0 - 10000" autofocus="autofocus" /> <br />
+    <label for="platelets">Piastrine (10^3/μL)</label>:
+    <input type="number" step="0.01" id="platelets" name="platelets" placeholder="150,0 - 450,0" autofocus="autofocus" /> <br />
+    <label for="neutrophils">Neutrofili (10^3/μL)</label>:
+    <input type="number" step="0.01" id="neutrophils" name="neutrophils" placeholder="1,9 - 7,5" autofocus="autofocus" /> <br />
+    <label for="lymphocytes">Linfociti (10^3/μL)</label>:
+    <input type="number" step="0.01" id="lymphocytes" name="lymphocytes" placeholder="0,08 - 0,8" autofocus="autofocus" /> <br/>
+
+    <input type="submit" name="action" value="Upload" />
+  </form>
+  <div
+          th:if="${message != null}"
+          class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+          role="alert">
+    [[${message}]]
+  </div>
+  <div>
+    <p>Elenco dei tuoi esami del sangue <a href="bloodExams">qui</a>.</p>
+  </div>
+  <div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+  </div>
+
+</body>
+</html>

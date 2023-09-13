@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Message Board</title>
+</head>
+<style>
+          .error {
+    color: red;
+  }
+#messageTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+}
+
+#messageTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+#messageTable td, #messageTable th, #messageTable td, #messageTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#messageTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#messageTable tr:hover {background-color: #ddd;}
+
+#messageTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#messageTable tr:hover {background-color: #ddd;}
+
+#messageTable th, #messageTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+<h1>I tuoi messaggi</h1>
+<p>Di seguito troverai i messaggi che ti sei scambiato con il tuo medico e con il personale infermieristico della struttura.</p>
+<div th:if="${messages.size() > 0}">
+    <table id="messageTable">
+        <thead>
+        <tr>
+            <th scope="col">Data invio</th>
+            <th scope="col">Mittente</th>
+            <th scope="col">Destinatario</th>
+            <th scope="col">Messaggio</th>
+            <th scope="col">Letto?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="message : ${messages}">
+            <td>[[${message.sendingDate}]]</td>
+            <td>[[${message.sender.surname}]]</td>
+            <td>[[${message.recipient.surname}]]</td>
+            <td>[[${message.messageBody}]]</td>
+            <td th:switch="${message.readMessage}">
+                <span th:case="true">Letto</span>
+                <span th:case="false">Non ancora letto</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div
+        th:if="${messageAlert != null}"
+        class="alert"
+        role="alert">
+    [[${messageAlert}]]
+</div>
+<div th:unless="${messages.size() > 0}">
+    <span>Nessun messaggio ricevuto o inviato.</span>
+</div>
+
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+
+</body>
+</html>

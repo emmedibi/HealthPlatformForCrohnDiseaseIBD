@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Data</title>
+</head>
+<style>
+    body{
+    margin-left: 30px;
+    }
+    #informazioni {
+    font-style: italic;
+    }
+</style>
+<body>
+<h2>Personal Data</h2>
+<div>
+    <p th:text="'Name: ' + ${patient.name}">Name: patient's name</p>
+    <p th:text="'Surname: ' + ${patient.surname}">Surname: patient's surname</p>
+    <p th:text="'CF: ' + ${patient.CF}">CF: patient's CF</p>
+    <p th:text="'Address: ' + ${patient.address}">Address: patient's address</p>
+    <p th:text="'Medical Expert: ' + ${patient.doctor.surname} + ' ' + ${patient.doctor.name}">Doctor: patient's doctor</p>
+</div>
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+<div id="informazioni">
+    <p>Ti ricordiamo che per prenotare una visita, i numeri del nostro centralino sono:
+        <br> tel. 02-XXXYYYZZZ
+        <br> tel. 02-ZZZXXXYYY
+        <br>
+        <br>I numeri sono attivi:
+        <br>dalle 8.00 alle 18.00 dal lunedì al venerdì,
+        <br>dalle 8.00 alle 12.00 nella giornata di sabato.
+        <br>
+        <br>Puoi anche scriverci una email all'indirizzo: myhealtplatform@mhp.com
+        <br>Ti risponderemo entro tre giorni lavorativi.
+        <br>Per urgenze, contattare i numeri sopra citati.</p>
+</div>
+</body>
+</html>

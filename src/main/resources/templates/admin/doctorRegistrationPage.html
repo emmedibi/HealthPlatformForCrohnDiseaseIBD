@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Registrazione nuovo medico</title>
+
+</head>
+<style>
+    body {
+    margin-left : 25px;
+    }
+    .error {
+    color : red;
+    }
+    input {
+    margin-bottom: 5px;
+    }
+    label {
+        display: inline-block;
+        width: 80px;
+        text-align: right;
+      }
+
+</style>
+
+<body>
+<h1> Registra un nuovo medico</h1>
+<br />
+<div    class="error"
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}"
+        role="alert">
+  ERRORE:
+  [[${errorMessage}]]
+</div>
+<br>
+<form th:action="@{/doctorRegistration}" method="post">
+  <label for="name">Name</label>:
+  <input type="text" id="name" name="name" autofocus="autofocus" /> <br />
+  <label for="username">Surname</label>:
+  <input type="text" id="surname" name="surname" autofocus="autofocus" /> <br />
+  <label for="username">Email</label>:
+  <input type="text" id="email" name="email" autofocus="autofocus" /> <br />
+  <label for="username">Username</label>:
+  <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+  <br>
+  <label>Altri dati</label>
+  <br>
+  <label for="name">Codice Fiscale</label>:
+  <input type="text" id="codiceFiscale" name="CF" autofocus="autofocus" /> <br />
+  <label for="username">BadgeNumber</label>:
+  <input type="text" id="badgeNumber" name="badgeNumber" placeholder="yyyymmA" autofocus="autofocus" /> <br />
+  <label for="username">Telephone Number</label>:
+  <input type="text" id="telephone" name="telephone" autofocus="autofocus" placeholder="02994470" /> <br />
+  <br />
+  <br />
+  <label for="password">Password</label>:
+  <input type="password" id="password" name="password" /> <br />
+  <input type="submit" value="Registration" />
+</form>
+<div>
+  <p>Torna alla pagina principale da <a href="/admin/adminPage.html">qui</a>.</p>
+</div>
+</body>
+</html>

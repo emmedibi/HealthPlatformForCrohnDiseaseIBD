@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuova categoria esame</title>
+    <style>
+        .textInput{
+        width: 400px;
+        }
+    </style>
+</head>
+<body>
+<h1>Crea una nuova categoria di esame</h1>
+    <form th:action="@{/admin/examCategories/addCategory}" method="post">
+        <label for="title">Titolo categoria</label>:
+        <input class="textInput" type="text" id="title" name="categoryTitle" autofocus="autofocus" /> <br />
+        <input type="submit" name="action" value="Submit" />
+    </form>
+    <br>
+        <div    class="error"
+                th:if="${message != null}" role="alert">
+            [[${message}]]
+        </div>
+<br>
+<div>
+    <p>Torna alla pagina principale da <a href="/admin/adminPage.html">qui</a>.</p>
+</div>
+</body>
+
+</html>

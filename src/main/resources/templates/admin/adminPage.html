@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        h3 {
+	font-style: italic;
+	}
+	body {
+	margin-left : 25px;
+	}
+	.sottoPunto{
+	margin-left: 30px;
+	}
+    </style>
+    <meta charset="UTF-8">
+    <title>AdminPage</title>
+</head>
+<body>
+<h1>Benvenuto nella pagina dedicata all'amministratore del sito</h1>
+<br>
+<!--<div>
+    <h3>Elenco Utenti</h3>
+    <p class="sottoPunto"> Mostra <a href="/admin/showAllUsers">utenti</a>.</p>
+</div>-->
+<br>
+<div>
+    <h3>Registra nuovi utenti</h3>
+    <p class="sottoPunto"> Crea una <a href="registration.html">nuova utenza admin o infermiere</a>.</p>
+</div>
+<div>
+    <p class="sottoPunto">Crea una <a href="doctorRegistrationPage.html">nuovo medico</a>.</p>
+</div>
+<div>
+    <p class="sottoPunto">Crea una <a href="/admin/patientRegistrationPage">nuovo paziente</a>.</p>
+</div>
+<br>
+<div>
+    <h3>Altre attivita'</h3>
+    <p class="sottoPunto">Crea una <a href="examCategories/examCategoryForm.html">nuova categoria di appuntamento</a>.</p>
+</div>
+<br>
+<div>
+    <h3>Effettua il logout </h3>
+</div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+</body>
+</html>

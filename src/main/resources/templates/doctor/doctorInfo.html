@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Info</title>
+</head>
+<body>
+<h1>File Upload</h1>
+<div
+        th:if="${message != null}"
+        class="alert"
+        role="alert">
+  [[${message}]]
+</div>
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

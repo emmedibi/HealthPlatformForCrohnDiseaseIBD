@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DiaryEntry</title>
+</head>
+<style>
+  #informazioni {
+    font-style: italic;
+  }
+</style>
+<body>
+<h1> Pagina di diario</h1>
+<div
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}"
+        role="alert">
+  ERRORE:
+  [[${errorMessage}]]
+</div>
+<br />
+<form th:action="@{/diary/saveDiaryEntryAsDraft}" method="post">
+  <label for="date">Pagina riferita al giorno</label>:
+  <input type="date" id="date" name="date" th:value="${#dates.format(#dates.createToday() , 'yyyy/MMM/dd')}" autofocus="autofocus" /> <br />
+  <label for="note">Note</label>:
+  <input type="text" id="note" name="note" autofocus="autofocus" /> <br />
+  <ul>
+    <li>
+      <span>Diarrhea:</span>
+      <input type="radio" id="yes_d" name="diarrhea" value="true" checked>
+      <label for="yes_d">Yes</label>
+      <input type="radio" id="no_d" name="diarrhea" value="false" checked>
+      <label for="no_d">No</label>
+    </li>
+    <li>
+      <span>Blood in stool:</span>
+      <input type="radio" id="yes_blood" name="bloodStool" value="true" checked>
+      <label for="yes_blood">Yes</label>
+      <input type="radio" id="no_blood" name="bloodStool" value="false" checked>
+      <label for="no_blood">No</label>
+    </li>
+    <li>
+      <span>Abdominal pain:</span>
+      <input type="radio" id="yes_abdominalPain" name="abdominalPain" value="true" checked>
+      <label for="yes_abdominalPain">Yes</label>
+      <input type="radio" id="no_abdominalPain" name="abdominalPain" value="false" checked>
+      <label for="no_abdominalPain">No</label>
+    </li>
+    <li>
+      <span>Fatigue:</span>
+      <input type="radio" id="yes_fatigue" name="fatigue" value="true" checked>
+      <label for="yes_fatigue">Yes</label>
+      <input type="radio" id="no_fatigue" name="fatigue" value="false" checked>
+      <label for="no_fatigue">No</label>
+    </li>
+  </ul>
+  <label for="numberOfBowelMovement">How many bowel movements you had in this date?</label>:
+  <input type="number" id="numberOfBowelMovement" name="numberOfBowelMovement" autofocus="autofocus" /> <br />
+  <br>
+  <br>
+  <input type="submit" name="action" value="Save"/>
+</form>
+<br>
+<br>
+<div
+        th:if="${message != null}"
+        class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+        role="alert">
+  [[${message}]]
+</div>
+<br>
+<div>
+  <p>Elenco delle tue pagine di diario <a href="diaryEntries">qui</a>.</p>
+</div>
+<div>
+  <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+<div id="informazioni">
+  <p>Tenere traccia dei tuoi sintomi è importante. Compila con costanza il tuo diario, inserendo i dati più significativi.</p>
+  <p>Il tuo diario sarà visibile al tuo medico, che potrà inviarti un messaggio nel caso lo ritenga opportuno.</p>
+  <p>Il diario non è un mezzo di comunicazione con il medico, ma uno strumento utile al controllo dei sintomi e alla crescita della consapevolezza
+    <br> del paziente circa la sua malattia e gli effetti che essa ha sulla sua vita.
+    <br>Per questo il diario è un mezzo informale ma estremamente importante ai fini della trattazione dei sintomi del paziente.</p>
+  <p>Ti ricordiamo di rivolgerti subito al tuo medico nel caso riscontrassi dei peggioramenti dei tuoi sintomi o l'insorgenza di sintomi anomali.</p>
+</div>
+</body>
+</html>

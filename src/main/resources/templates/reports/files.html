@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>File PDF</title>
+</head>
+<style>
+#docuTable {
+font-family: Arial, Helvetica, sans-serif;
+border-collapse: collapse;
+width: 50%;
+}
+
+#docuTable td, #docuTable th {
+border: 1px solid #ddd;
+padding: 8px;
+}
+
+#docuTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#docuTable tr:hover {background-color: #ddd;}
+
+#docuTable th {
+padding-top: 12px;
+padding-bottom: 12px;
+text-align: left;
+color: black;
+}
+</style>
+<body>
+    <h1>Elenco dei tuoi file</h1>
+    <!--    TABELLA DEI DOCUMENTI-->
+    <div th:if="${files.size() > 0}">
+        <table id="docuTable">
+            <thead>
+            <tr>
+                <th scope="col">File Name</th>
+                <th scope="col">Link</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="file : ${files}">
+                <td>[[${file.name}]]</td>
+                <td><a th:href="@{${file.url}}">Download</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--    Messaggio se nessun documento PDF è registrato a sistema per il paziente loggato.-->
+    <div th:unless="${files.size() > 0}">
+        <span>Non hai ancora caricato nessun documento.</span>
+    </div>
+    <!--    link di ritorno alla pagina principale-->
+    <div>
+        <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+    </div>
+</body>
+</html>

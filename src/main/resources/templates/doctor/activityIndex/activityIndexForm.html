@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Activity Index Form</title>
+</head>
+<body>
+<h1> Indice di Attività della malattia</h1>
+<br />
+
+<form th:action="@{/doctor/activityIndex/activityIndexCalculator}" method="post">
+    <label for="weight">Weight (Kg)</label>:
+    <input type="number" id="weight" name="weight" autofocus="autofocus" /><br>
+    <label for="idealBodyWeight">Ideal Body Weight (Kg)</label>:
+    <input type="number" id="idealBodyWeight" name="idealBodyWeight" autofocus="autofocus" /> <br />
+    <label for="totalNumberOfLiquidStoolInTheLastSevenDays">Average number of liquid stool in the last seven days</label>:
+    <input type="number" id="totalNumberOfLiquidStoolInTheLastSevenDays" name="totalNumberOfLiquidStoolInTheLastSevenDays" autofocus="autofocus" /> <br />
+    <label for="softStoolDayBefore">Number of liquid stool happened yesterday:</label>:
+    <input type="number" id="softStoolDayBefore" name="softStoolDayBefore" autofocus="autofocus" /> <br />
+    <label for="hematocrit">Heamtocrit (%)</label>:
+    <input type="number" id="hematocrit" name="hematocrit" autofocus="autofocus" /> <br />
+    <ul>
+        <li>
+            <span>Abdominal Pain in the last seven days:</span>
+            <input type="radio" id="none_seven" name="averagePastSevenDaysAbdominalPain" value="0" checked>
+            <label for="none_seven">NONE</label>
+            <input type="radio" id="mild_seven" name="averagePastSevenDaysAbdominalPain" value="1" checked>
+            <label for="mild_seven">MILD</label>
+            <input type="radio" id="moderate_seven" name="averagePastSevenDaysAbdominalPain" value="2" checked>
+            <label for="moderate_seven">MODERATE</label>
+            <input type="radio" id="severe_seven" name="averagePastSevenDaysAbdominalPain" value="3" checked>
+            <label for="severe_seven">SEVERE</label>
+        </li>
+        <li>
+            <span>Abdominal Pain yesterday:</span>
+            <input type="radio" id="none_yesterday" name="yesterdayAbdominalPain" value="0" checked>
+            <label for="none_yesterday">NONE</label>
+            <input type="radio" id="mild_yesterday" name="yesterdayAbdominalPain" value="1" checked>
+            <label for="mild_yesterday">MILD</label>
+            <input type="radio" id="moderate_yesterday" name="yesterdayAbdominalPain" value="2" checked>
+            <label for="moderate_yesterday">MODERATE</label>
+            <input type="radio" id="severe_yesterday" name="yesterdayAbdominalPain" value="3" checked>
+            <label for="severe_yesterday">SEVERE</label>
+        </li>
+        <li>
+            <span>General Well Being in the last seven days:</span>
+            <input type="radio" id="well_seven" name="averagePastSevenDaysWellBeing" value="0" checked>
+            <label for="well_seven">WELL</label>
+            <input type="radio" id="slightlyUnderPar_seven" name="averagePastSevenDaysWellBeing" value="1" checked>
+            <label for="slightlyUnderPar_seven">SLIGHTLY_UNDER_PAR</label>
+            <input type="radio" id="poor_seven" name="averagePastSevenDaysWellBeing" value="2" checked>
+            <label for="poor_seven">POOR</label>
+            <input type="radio" id="veryPoor_seven" name="averagePastSevenDaysWellBeing" value="3" checked>
+            <label for="veryPoor_seven">VERY_POOR</label>
+            <input type="radio" id="terribile_seven" name="averagePastSevenDaysWellBeing" value="4" checked>
+            <label for="terribile_seven">TERRIBLE</label>
+        </li>
+        <li>
+            <span>General Well Being yesterday:</span>
+            <input type="radio" id="well_yesterday" name="yesterdayWellBeing" value="0" checked>
+            <label for="well_yesterday">WELL</label>
+            <input type="radio" id="slightlyUnderPar_yesterday" name="yesterdayWellBeing" value="1" checked>
+            <label for="slightlyUnderPar_yesterday">SLIGHTLY_UNDER_PAR</label>
+            <input type="radio" id="poor_yesterday" name="yesterdayWellBeing" value="2" checked>
+            <label for="poor_yesterday">POOR</label>
+            <input type="radio" id="veryPoor_yesterday" name="yesterdayWellBeing" value="3" checked>
+            <label for="veryPoor_yesterday">VERY_POOR</label>
+            <input type="radio" id="terribile_yesterday" name="yesterdayWellBeing" value="4" checked>
+            <label for="terribile_yesterday">TERRIBLE</label>
+        </li>
+        <li>
+            <span>Abdominal Mass:</span>
+            <input type="radio" id="no_abdominalMass" name="abdominalMass" value="0" checked>
+            <label for="no_abdominalMass">NO</label>
+            <input type="radio" id="questionable_abdominalMass" name="abdominalMass" value="1" checked>
+            <label for="questionable_abdominalMass">QUESTIONABLE</label>
+            <input type="radio" id="definite_abdominalMass" name="abdominalMass" value="2" checked>
+            <label for="definite_abdominalMass">DEFINITE</label>
+            <input type="radio" id="definiteAndTender_abdominalMass" name="abdominalMass" value="3" checked>
+            <label for="definiteAndTender_abdominalMass">DEFINITE_AND_TENDER</label>
+        </li>
+        <li>
+            <span>Did you use anti-diarrhea drugs in the last seven days?:</span>
+            <input type="radio" id="yes_antiDiarrheaDrug" name="antiDiarrheaDrugUse" value="true" checked>
+            <label for="yes_antiDiarrheaDrug">Yes</label>
+            <input type="radio" id="no_antiDiarrheaDrug" name="antiDiarrheaDrugUse" value="false" checked>
+            <label for="no_antiDiarrheaDrug">No</label>
+        </li>
+    </ul>
+    <label>Complications:</label>
+    <ul>
+        <li>
+            <span>Arthralgias:</span>
+            <input type="radio" id="yes_arthralgias" name="arthralgias" value="true" checked>
+            <label for="yes_arthralgias">Yes</label>
+            <input type="radio" id="no_arthralgias" name="arthralgias" value="false" checked>
+            <label for="no_arthralgias">No</label>
+        </li>
+        <li>
+            <span>Uveitis:</span>
+            <input type="radio" id="yes_uveitis" name="uveitis" value="true" checked>
+            <label for="yes_uveitis">Yes</label>
+            <input type="radio" id="no_uveitis" name="uveitis" value="false" checked>
+            <label for="no_uveitis">No</label>
+        </li>
+        <li>
+            <span>Erythema Nodosum:</span>
+            <input type="radio" id="yes_erythemaNodosum" name="erythemaNodosum" value="true" checked>
+            <label for="yes_erythemaNodosum">Yes</label>
+            <input type="radio" id="no_erythemaNodosum" name="erythemaNodosum" value="false" checked>
+            <label for="no_erythemaNodosum">No</label>
+        </li>
+        <li>
+            <span>Pyoderma Gangrenosum:</span>
+            <input type="radio" id="yes_pyodermaGangrenosum" name="pyodermaGangrenosum" value="true" checked>
+            <label for="yes_pyodermaGangrenosum">Yes</label>
+            <input type="radio" id="no_pyodermaGangrenosum" name="pyodermaGangrenosum" value="false" checked>
+            <label for="no_pyodermaGangrenosum">No</label>
+        </li>
+        <li>
+            <span>Apthous Stomatitis:</span>
+            <input type="radio" id="yes_apthousStomatitis" name="apthousStomatitis" value="true" checked>
+            <label for="yes_apthousStomatitis">Yes</label>
+            <input type="radio" id="no_apthousStomatitis" name="apthousStomatitis" value="false" checked>
+            <label for="no_apthousStomatitis">No</label>
+        </li>
+        <li>
+            <span>Anal Fissure:</span>
+            <input type="radio" id="yes_analFissure" name="analFissure" value="true" checked>
+            <label for="yes_analFissure">Yes</label>
+            <input type="radio" id="no_analFissure" name="analFissure" value="false" checked>
+            <label for="no_analFissure">No</label>
+        </li>
+        <li>
+            <span>Abscess:</span>
+            <input type="radio" id="yes_abscess" name="abscess" value="true" checked>
+            <label for="yes_abscess">Yes</label>
+            <input type="radio" id="no_abscess" name="abscess" value="false" checked>
+            <label for="no_abscess">No</label>
+        </li>
+        <li>
+            <span>Other Fistula:</span>
+            <input type="radio" id="yes_otherFistula" name="otherFistula" value="true" checked>
+            <label for="yes_otherFistula">Yes</label>
+            <input type="radio" id="no_otherFistula" name="otherFistula" value="false" checked>
+            <label for="no_otherFistula">No</label>
+        </li>
+        <li>
+            <span>Fever (more than 37.8):</span>
+            <input type="radio" id="yes_fever" name="fever" value="true" checked>
+            <label for="yes_fever">Yes</label>
+            <input type="radio" id="no_fever" name="fever" value="false" checked>
+            <label for="no_fever">No</label>
+        </li>
+        <li>
+            <span>Fistula:</span>
+            <input type="radio" id="yes_fistula" name="fistula" value="true" checked>
+            <label for="yes_fistula">Yes</label>
+            <input type="radio" id="no_fistula" name="fistula" value="false" checked>
+            <label for="no_fistula">No</label>
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <span>Calculation Strategy:</span>
+            <input type="radio" id="CDAI" name="calculationStrategy" value="0" checked>
+            <label for="CDAI">CDAI</label>
+            <input type="radio" id="HBI" name="calculationStrategy" value="1" checked>
+            <label for="HBI">HBI</label>
+            <input type="radio" id="both" name="calculationStrategy" value="2" checked>
+            <label for="both">Both</label>
+
+        </li>
+    </ul>
+    <br/>
+    <input type="submit" name="action" value="Calcola" />
+<!--    <input type="submit" name="action" value="HBI"/>-->
+<!--    <input type="submit" name="action" value="Both"/>-->
+
+</form>
+<div
+        th:if="${message != null}"
+        role="alert">
+    [[${message}]]
+</div>
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

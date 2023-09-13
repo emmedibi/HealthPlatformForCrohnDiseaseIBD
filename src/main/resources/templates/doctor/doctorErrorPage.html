@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Error Page</title>
+</head>
+<body>
+<div
+        th:if="${message != null}"
+        class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+        role="alert">
+  [[${message}]]
+</div>
+</body>
+</html>

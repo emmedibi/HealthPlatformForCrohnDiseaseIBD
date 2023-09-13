@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<style>
+	body {
+		margin-left : 30px;
+	}
+	input {
+	margin-bottom:5px;
+	}
+	h3 {
+	font-style: italic;
+	}
+	h1 {
+	font-family: verdana, Geneva, sans-serif;
+	}
+	span, .greetings, p, h2 {
+	font-family : verdana, Geneva, sans-serif;
+	font-size : 20px;
+	}
+	.logout {
+		margin-right: 25px;
+	}
+
+	<!--.areaTecnica {
+		height: 0;
+  		width: 0;
+  		border-left: 15px solid #ff4136;
+  		border-right: 15px solid transparent;
+  		border-bottom: 15px solid transparent;
+  		border-top: 15px solid transparent;
+  		float : left;
+	}-->
+</style>
+<meta charset="ISO-8859-1">
+<title>Welcome Page</title>
+</head>
+<body>
+	<h1>Welcome Page</h1>
+
+	<div class="logout" sec:authorize="isAuthenticated()" align="right">
+		<span sec:authentication="name">Utente</span>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Logout" />
+		</form>
+	</div>
+	<div>
+
+	<p class = "greetings">Benvenuto nella tua Home page</p>
+		<p class = "greetings">Qui potrai selezionare le funzioni di cui hai bisogno.</p>
+	</div>
+
+	<!-- Contenuto per AMMINISTRATORI -->
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<p>Per l'area tecnica, <a href="admin/adminPage.html">clicca qui</a>.</p>
+	</div>
+	<!-- Contenuto per PAZIENTI -->
+	<div sec:authorize="hasRole('ROLE_PATIENT')">
+		<h3>Personal data</h3>
+		<p>Enter in your personal account <a href="patient/personalData"> qui</a>.</p>
+		<h3>File PDF:</h3>
+		<p>Load a file <a href="reports/uploadForm.html">here</a>.</p>
+		<p>L'elenco dei tuoi file è <a href="reports/files">qui</a>.</p>
+		<h3>Blood Test Reports:</h3>
+		<p>Elenco dei tuoi esami del sangue <a href="reports/bloodExams">qui</a>.</p>
+		<p>Inserisci il risultato dei tuoi esami del sangue <a href="reports/bloodExamForm.html">qui</a>.</p>
+		<h3>Personal Diary:</h3>
+		<p>Inserisci le tue note di oggi sul diario <a href="diary/diaryEntryForm.html">qui</a>.</p>
+		<p>Sfoglia il tuo diario <a href="diary/diaryEntries">qui</a>.</p>
+		<h3>Appointments:</h3>
+		<p>Sfoglia la tua Agenda <a href="agenda/patientAppointments">qui</a>.</p>
+		<h3>Messages:</h3>
+		<p>Controlla i tuoi <a href="message/patientBoard"> messaggi</a></p>
+		<p>Scrivi un nuovo <a href="message/NewMessageForm.html">messaggio</a>.</p>
+
+	</div>
+	<!-- Contenuto per MEDICI -->
+	<div sec:authorize="hasRole('ROLE_DOCTOR')">
+		<h2>OPERAZIONI</h2>
+		<h3>Pazienti</h3>
+		<p>Visualizza i <a href="doctor/yourPatients"> tuoi pazienti </a></p>
+		<h3>Appuntamenti</h3>
+		<p>Guarda la tua <a href="doctorAgenda/doctorTodayAgenda">agenda </a>del giorno. </p>
+		<p>Guarda la tua <a href="doctorAgenda/doctorAgenda">agenda </a>.</p>
+		<p>Crea <a href="doctorAgenda/doctorAppointmentForm">appuntamento </a>per un tuo paziente. </p>
+		<h3>Messaggi</h3>
+		<p>Vedi messaggi non letti <a href="doctor/message/doctorBoard">qui</a>.</p>
+
+	</div>
+	<!-- Contenuto per INFERMIERI -->
+	<div sec:authorize="hasRole('ROLE_NURSE')">
+		<h2>OPERAZIONI</h2>
+		<h3>Pazienti</h3>
+		<p>Visualizza <a href="nurse/listOfPatients"> pazienti</a>.</p>
+		<h3>Medici</h3>
+		<p>Visualizza <a href="nurse/listOfDoctors"> dottori</a>.</p>
+	</div>
+	<br>
+</div>
+</body>
+</html>

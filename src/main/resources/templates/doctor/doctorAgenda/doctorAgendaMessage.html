@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <meta charset="UTF-8">
+  <title>Info</title>
+</head>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<body>
+<h1>Informazioni</h1>
+<div    class = "error"
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}"
+        role="alert">
+  ERRORE:
+  [[${errorMessage}]]
+</div>
+<div
+        th:if="${message != null}"
+        class="alert"
+        role="alert">
+  [[${message}]]
+</div>
+<div
+        th:if="${emailMessage != null}"
+        class="alert"
+        role="alert">
+  [[${emailMessage}]]
+</div>
+<p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+<div sec:authorize="hasRole('ROLE_DOCTOR')">
+  <p>Oppure inserisci un <a href="/doctorAgenda/doctorAppointmentForm">nuovo appuntamento</a>.</p>
+</div>
+</body>
+</html>

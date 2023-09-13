@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Message Form</title>
+</head>
+<body>
+<h1> Scrivi un nuovo messaggio</h1>
+<br />
+<div
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}"
+        role="alert">
+    ERRORE:
+    [[${errorMessage}]]
+</div>
+<br>
+<p>Il messaggio verrà inviato al tuo medico e al personale sanitario infermieristico.</p>
+<form th:action="@{/message/addANewMessage}" method="post">
+  <label for="messageBody">Testo del messaggio</label>:
+  <input type="text" id="messageBody" name="messageBody" autofocus="autofocus" /> <br />
+  <input type="submit" name="action" value="Submit" />
+</form>
+
+<div
+        th:if="${messageAlert != null}"
+        class="alert">
+    [[${messageAlert}]]
+</div>
+<p>Controlla i tuoi <a href="patientBoard"> messaggi</a></p>
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

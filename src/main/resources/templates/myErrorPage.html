@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MyErrorPage</title>
+</head>
+<body>
+<h1>&Eacute avvenuto un errore</h1>
+<h3>Ci scusiamo, ma durante l'esecuzione del programma si è verificato il seguente errore:</h3>
+<br>
+<div
+        th:if="${message != null}"
+        class="alert"
+        role="alert">
+    [[${message}]]
+</div>
+<br>
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

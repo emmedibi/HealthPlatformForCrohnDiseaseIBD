@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuovo Appuntamento</title>
+</head>
+<style>
+  .error {
+    color: red;
+  }
+</style>
+<body>
+<h1> Aggiungi un appuntamento</h1>
+<br />
+<form th:action="@{/doctorAgenda/addDoctorAppointment}" method="post">
+  <label for="text">Visita</label>:
+  <input type="text" id="text" name="text" autofocus="autofocus" /> <br />
+  <label for="appointmentDate">Data svolgimento esame</label>:
+  <input type="datetime-local" id="appointmentDate" name="appointmentDate" autofocus="autofocus" /> <br />
+  <br />
+  <p>Patient:</p>
+    <input type="radio" name="patient" th:each="patient : ${patients}"
+           th:text="${patient.surname + ' ' + patient.name}" th:value="${patient.id}">
+    <br />
+
+  <input type="submit" name="action" value="Submit" />
+</form>
+<div>
+  <p><b>ATTENZIONE</b>: L'invio richiede qualche secondo per la produzione della email di promemoria al paziente.</p>
+</div>
+<div>
+  <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

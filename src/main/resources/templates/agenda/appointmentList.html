@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MyAgenda</title>
+</head>
+<style>
+    .error {
+    color: red;
+  }
+#appointmentTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+}
+
+#appointmentTable td, #appointmentTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#appointmentTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#appointmentTable tr:hover {background-color: #ddd;}
+
+
+#appointmentTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+<h1>Lista degli appuntamenti per l'utente loggato</h1>
+
+<div th:if="${appointments.size() > 0}">
+  <table id="appointmentTable">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Type</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="appointment : ${appointments}">
+      <td>[[${appointment.text}]]</td>
+      <td>[[${appointment.appointmentDate}]]</td>
+      <td>[[${appointment.examCategory.categoryTitle}]]</td>
+      <td>
+      <form th:method="DELETE" th:action="|/agenda/deleteAppointment/*{appointment.id}|">
+        <input type="submit" value="Delete">
+      </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div
+        th:if="${message != null}"
+        class="alert">
+  [[${message}]]
+</div>
+<div th:unless="${appointments.size() > 0}">
+  <span>Nessun appuntamento trovato</span>
+</div>
+<br />
+<div    class="error"
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}">
+  ERRORE:
+  [[${errorMessage}]]
+</div>
+<br>
+<br />
+<h1> Aggiungi un appuntamento</h1>
+<br />
+<form th:action="@{/agenda/addAnAppointment}" method="post">
+  <label for="text">Title</label>:
+  <input type="text" id="text" name="text" autofocus="autofocus" /> <br />
+  <label for="appointmentDate">Data svolgimento esame</label>:
+  <input type="datetime-local" id="appointmentDate" name="appointmentDate" autofocus="autofocus" /> <br />
+  <br />
+  <input type="radio" name="examCategory" th:each="examCategory : ${examCategories}"
+         th:text="${examCategory.categoryTitle}" th:value="${examCategory.id}">
+  <br />
+  <input type="submit" name="action" value="Submit" />
+</form>
+<div>
+  <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>

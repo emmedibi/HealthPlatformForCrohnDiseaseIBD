@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Message Info</title>
+</head>
+<style>
+  .error {
+  color: red;
+  }
+</style>
+<body>
+<h1>Informazioni</h1>
+<div    class="error"
+        th:if="${errorMessages != null}"
+        th:each="errorMessage : ${errorMessages}">
+  ERRORE:
+  [[${errorMessage}]]
+</div>
+<div
+        th:if="${messageAlert != null}"
+        class="alert"
+        role="alert">
+  [[${messageAlert}]]
+</div>
+<div
+        th:if="${message != null}">
+  [[${message}]]
+</div>
+<p>Ritorna alla <a href="/nurse/listOfPatients">home</a>.</p>
+</body>
+</html>

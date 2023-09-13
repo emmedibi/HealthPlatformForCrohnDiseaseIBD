@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda</title>
+</head>
+<style>
+    .error {
+    color: red;
+  }
+#appointmentTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+}
+
+#appointmentTable td, #appointmentTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#appointmentTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#appointmentTable tr:hover {background-color: #ddd;}
+
+
+#appointmentTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: black;
+}
+</style>
+<body>
+    <h1>Agenda</h1>
+<div th:if="${appointments.size() > 0}">
+    <table id="appointmentTable">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Patient</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appointment : ${appointments}">
+            <td>[[${appointment.text}]]</td>
+            <td>[[${appointment.appointmentDate}]]</td>
+            <td>[[${appointment.patient.surname}]] [[${appointment.patient.name}]] </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div
+        th:if="${message != null}"
+        class="alert">
+    [[${message}]]
+</div>
+<div th:unless="${appointments.size() > 0}">
+    <span>Nessun appuntamento trovato</span>
+</div>
+<div>
+    <p>Torna alla pagina principale da <a href="/index">qui</a>.</p>
+</div>
+</body>
+</html>
