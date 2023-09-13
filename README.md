@@ -1,5 +1,5 @@
 # HealthPlatformForCrohnDiseaseIBD
-a health platform for patients with Crohn Disease.
+a health platform for patients with Crohn's Disease.
 
 The Crohn Disease is a IBD (Inflammatory Bowel Disease), _it causes swelling of the tissues (inflammation) in your digestive tract, which can lead to abdominal pain, severe diarrhea, fatigue, weight loss and malnutrition_ (source: https://www.mayoclinic.org/diseases-conditions/crohns-disease/symptoms-causes/syc-20353304#:~:text=Crohn's%20disease%20is%20a%20type,fatigue%2C%20weight%20loss%20and%20malnutrition).
 
