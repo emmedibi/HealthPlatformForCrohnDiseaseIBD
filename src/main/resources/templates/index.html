@@ -6,38 +6,59 @@
 		margin-left : 30px;
 	}
 	input {
-	margin-bottom:5px;
+		margin-bottom:5px;
 	}
 	h3 {
-	font-style: italic;
+		font-style: italic;
 	}
 	h1 {
-	font-family: verdana, Geneva, sans-serif;
+		font-family: verdana, Geneva, sans-serif;
 	}
 	span, .greetings, p, h2 {
-	font-family : verdana, Geneva, sans-serif;
-	font-size : 20px;
+		font-family : verdana, Geneva, sans-serif;
+		font-size : 20px;
 	}
 	.logout {
 		margin-right: 25px;
 	}
-
-	<!--.areaTecnica {
-		height: 0;
-  		width: 0;
-  		border-left: 15px solid #ff4136;
-  		border-right: 15px solid transparent;
-  		border-bottom: 15px solid transparent;
-  		border-top: 15px solid transparent;
-  		float : left;
-	}-->
+	.dot1, .dot2, .dot3 {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+        }
+    h1 {
+    	text-align: center;
+    }
+    h3 {
+    	font-size : 25px;
+    }
+    .box {
+	  	height: auto;
+	  	width: 50%;
+		background-color: #FAFAD2;
+		border-radius:7px;
+		margin: 5px;
+		padding: 5px;
+		text-align:left;
+		vertical-align:middle;
+		justify-content:center;
+		align-items: center;
+	}
+	ul {
+		list-style-type: circle;
+	}
 </style>
 <meta charset="ISO-8859-1">
 <title>Welcome Page</title>
 </head>
 <body>
 	<h1>Welcome Page</h1>
-
+	<div style="text-align:center">
+		<span class="dot1" style="background-color: #ADD8E6"></span>
+		<span class="dot2" style="background-color: #FAFAD2"></span>
+		<span class="dot3" style="background-color: #D3D3D3"></span>
+	</div>
 	<div class="logout" sec:authorize="isAuthenticated()" align="right">
 		<span sec:authentication="name">Utente</span>
 		<form th:action="@{/logout}" method="post">
@@ -56,44 +77,72 @@
 	</div>
 	<!-- Contenuto per PAZIENTI -->
 	<div sec:authorize="hasRole('ROLE_PATIENT')">
-		<h3>Personal data</h3>
-		<p>Enter in your personal account <a href="patient/personalData"> qui</a>.</p>
-		<h3>File PDF:</h3>
-		<p>Load a file <a href="reports/uploadForm.html">here</a>.</p>
-		<p>L'elenco dei tuoi file è <a href="reports/files">qui</a>.</p>
-		<h3>Blood Test Reports:</h3>
-		<p>Elenco dei tuoi esami del sangue <a href="reports/bloodExams">qui</a>.</p>
-		<p>Inserisci il risultato dei tuoi esami del sangue <a href="reports/bloodExamForm.html">qui</a>.</p>
-		<h3>Personal Diary:</h3>
-		<p>Inserisci le tue note di oggi sul diario <a href="diary/diaryEntryForm.html">qui</a>.</p>
-		<p>Sfoglia il tuo diario <a href="diary/diaryEntries">qui</a>.</p>
-		<h3>Appointments:</h3>
-		<p>Sfoglia la tua Agenda <a href="agenda/patientAppointments">qui</a>.</p>
-		<h3>Messages:</h3>
-		<p>Controlla i tuoi <a href="message/patientBoard"> messaggi</a></p>
-		<p>Scrivi un nuovo <a href="message/NewMessageForm.html">messaggio</a>.</p>
-
+		<div class="box">
+			<h3>Your Personal data</h3>
+			<p>Enter in your personal account <a href="patient/personalData"> qui</a>.</p>
+		</div>
+		<div class="box">
+			<h3>Your File PDF:</h3>
+			<ul>
+				<li><p>Load a file <a href="reports/uploadForm.html">here</a>.</p></li>
+				<li><p>L'elenco dei tuoi file è <a href="reports/files">qui</a>.</p></li>
+			</ul>
+		</div>
+		<div class="box">
+			<h3>Your Blood Test Reports:</h3>
+			<ul>
+				<li><p>Elenco dei tuoi esami del sangue <a href="reports/bloodExams">qui</a>.</p></li>
+				<li><p>Inserisci il risultato dei tuoi esami del sangue <a href="reports/bloodExamForm.html">qui</a>.</p></li>
+			</ul>
+		</div>
+		<div class="box">
+			<h3>Your Personal Diary:</h3>
+			<ul>
+				<li><p>Inserisci le tue note di oggi sul diario <a href="diary/diaryEntryForm.html">qui</a>.</p></li>
+				<li><p>Sfoglia il tuo diario <a href="diary/diaryEntries">qui</a>.</p></li>
+			</ul>
+		</div>
+		<div class="box">
+			<h3>Your Appointments:</h3>
+			<p>Sfoglia la tua Agenda <a href="agenda/patientAppointments">qui</a>.</p>
+		</div>
+		<div class="box">
+			<h3>Messages:</h3>
+			<ul>
+			<li><p>Controlla i tuoi <a href="message/patientBoard"> messaggi</a></p></li>
+			<li><p>Scrivi un nuovo <a href="message/NewMessageForm.html">messaggio</a>.</p></li>
+			</ul>
+		</div>
 	</div>
 	<!-- Contenuto per MEDICI -->
 	<div sec:authorize="hasRole('ROLE_DOCTOR')">
-		<h2>OPERAZIONI</h2>
-		<h3>Pazienti</h3>
-		<p>Visualizza i <a href="doctor/yourPatients"> tuoi pazienti </a></p>
-		<h3>Appuntamenti</h3>
-		<p>Guarda la tua <a href="doctorAgenda/doctorTodayAgenda">agenda </a>del giorno. </p>
-		<p>Guarda la tua <a href="doctorAgenda/doctorAgenda">agenda </a>.</p>
-		<p>Crea <a href="doctorAgenda/doctorAppointmentForm">appuntamento </a>per un tuo paziente. </p>
-		<h3>Messaggi</h3>
-		<p>Vedi messaggi non letti <a href="doctor/message/doctorBoard">qui</a>.</p>
-
+		<div class="box">
+			<h3>Patients</h3>
+			<p>Visualizza i <a href="doctor/yourPatients"> tuoi pazienti </a></p>
+		</div>
+		<div class="box">
+			<h3>Appointments</h3>
+			<ul>
+			<li><p>Guarda la tua <a href="doctorAgenda/doctorTodayAgenda">agenda </a>del giorno. </p></li>
+			<li><p>Guarda la tua <a href="doctorAgenda/doctorAgenda">agenda </a>.</p></li>
+			<li><p>Crea <a href="doctorAgenda/doctorAppointmentForm">appuntamento </a>per un tuo paziente. </p></li>
+			</ul>
+		</div>
+		<div class="box">
+			<h3>Messages</h3>
+			<p>Vedi messaggi non letti <a href="doctor/message/doctorBoard">qui</a>.</p>
+		</div>
 	</div>
 	<!-- Contenuto per INFERMIERI -->
 	<div sec:authorize="hasRole('ROLE_NURSE')">
-		<h2>OPERAZIONI</h2>
-		<h3>Pazienti</h3>
-		<p>Visualizza <a href="nurse/listOfPatients"> pazienti</a>.</p>
-		<h3>Medici</h3>
-		<p>Visualizza <a href="nurse/listOfDoctors"> dottori</a>.</p>
+		<div class="box">
+			<h3>Patients</h3>
+			<p>Visualizza <a href="nurse/listOfPatients"> pazienti</a>.</p>
+		</div>
+		<div class="box">
+			<h3>Doctors</h3>
+			<p>Visualizza <a href="nurse/listOfDoctors"> dottori</a>.</p>
+		</div>
 	</div>
 	<br>
 </div>
