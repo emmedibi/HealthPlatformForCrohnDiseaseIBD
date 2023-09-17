@@ -2,11 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Doctors</title>
 </head>
 <style>
   .error {
     color: red;
+    font-size: 17px;
+    margin-left: 10px;
   }
 #doctorTable {
   font-family: Arial, Helvetica, sans-serif;
@@ -19,9 +21,9 @@
   padding: 8px;
 }
 
-#doctorTable tr:nth-child(even){background-color: #f2f2f2;}
+#doctorTable tr:nth-child(even){background-color: #FAFAD2;}
 
-#doctorTable tr:hover {background-color: #ddd;}
+#doctorTable tr:hover {background-color: #FAFAD2;}
 
 #doctorTable th {
   padding-top: 12px;
@@ -36,7 +38,7 @@ margin-left: 30px;
 <body>
 <div class="doctorlist">
 
-  <h2>Medici della struttura</h2>
+  <h2>Doctors</h2>
 <!--Tabella dottori della struttura-->
   <div th:if="${doctors.size() > 0}">
   <table id="doctorTable">
