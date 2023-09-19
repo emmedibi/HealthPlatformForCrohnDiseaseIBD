@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <style>
+        .dot1, .dot2, .dot3 {
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>Logout</title>
 </head>
 <body>
-<h3>Logout</h3>
-<div>
-  <p>Logout effettuato con successo.</p>
-  <p>Segui <a href="/login">questo link</a> per tornare alla pagina iniziale.</p>
+<h1>Logout</h1>
+<div style="text-align:center">
+    <span class="dot1" style="background-color: #ADD8E6"></span>
+    <span class="dot2" style="background-color: #FAFAD2"></span>
+    <span class="dot3" style="background-color: #D3D3D3"></span>
+    <p>Logout effettuato con successo.</p>
+    <p>Segui <a href="/login">questo link</a> per tornare alla pagina iniziale.</p>
 </div>
 </body>
 </html>

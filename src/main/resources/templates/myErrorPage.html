@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        .dot1, .dot2, .dot3 {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>MyErrorPage</title>
 </head>
 <body>
 <h1>&Eacute avvenuto un errore</h1>
+<div style="text-align:center">
+    <span class="dot1" style="background-color: #ADD8E6"></span>
+    <span class="dot2" style="background-color: #FAFAD2"></span>
+    <span class="dot3" style="background-color: #D3D3D3"></span>
+</div>
 <h3>Ci scusiamo, ma durante l'esecuzione del programma si è verificato il seguente errore:</h3>
 <br>
 <div

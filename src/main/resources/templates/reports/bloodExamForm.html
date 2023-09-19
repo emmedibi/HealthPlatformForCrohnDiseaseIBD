@@ -7,21 +7,44 @@
 <style>
   body {
     margin-left : 25px;
-    }
-  .error {
+  }
+  p {
+    font-size: 18px;
+  }
+  .error, .alert {
     color: red;
+    font-size: 17px;
+    margin-left: 10px;
   }
   input {
     margin-bottom: 5px;
-    }
-    label {
-        display: inline-block;
-        width: 100px;
-        text-align: left;
-      }
+  }
+  label {
+    display: inline-block;
+    width: 200px;
+    margin-top: 10px;
+    text-align: left;
+    font-size : 18px;
+  }
+  .box {
+	height: auto;
+	width: 35%;
+	background-color: #ADD8E6;
+	border-radius:7px;
+	margin: 5px;
+	padding: 5px;
+	text-align:left;
+	vertical-align:middle;
+	justify-content:center;
+	align-items: center;
+  }
+  .btn_upload {
+    padding : 10px;
+    margin-top: 10px;
+  }
 </style>
 <body>
-  <h1> Patient's Blood Exams Form</h1>
+  <h1 style="text-align:center"> Patient's Blood Exams Form</h1>
   <br />
   <div    class="error"
           th:if="${errorMessages != null}"
@@ -31,32 +54,34 @@
     [[${errorMessage}]]
   </div>
   <br>
-  <br />
-  <form th:action="@{/reports/bloodExamUpload}" method="post">
-    <label for="description">Descrizione</label>:
-    <input type="text" id="description" name="description" autofocus="autofocus" /> <br />
-    <label for="examinationDate">Data svolgimento esame</label>:
-    <input type="date" id="examinationDate" name="examinationDate" autofocus="autofocus" /> <br />
-    <label for="ves">VES (mm/h)</label>:
-    <input type="number" step="0.01" id="ves" name="ves" placeholder="0,0 - 15,0" autofocus="autofocus" /> <br />
-    <label for="cpr">Proteina C reattiva (mg/L)</label>:
-    <input type="number" step="0.01" id="cpr" name="cpr" placeholder="0,0 - 10,0" autofocus="autofocus" /> <br />
-    <label for="calprotectin">Calprotectina (mg/Kg)</label>:
-    <input type="number" id="calprotectin" name="calprotectin" placeholder="0 - 10000" autofocus="autofocus" /> <br />
-    <label for="platelets">Piastrine (10^3/μL)</label>:
-    <input type="number" step="0.01" id="platelets" name="platelets" placeholder="150,0 - 450,0" autofocus="autofocus" /> <br />
-    <label for="neutrophils">Neutrofili (10^3/μL)</label>:
-    <input type="number" step="0.01" id="neutrophils" name="neutrophils" placeholder="1,9 - 7,5" autofocus="autofocus" /> <br />
-    <label for="lymphocytes">Linfociti (10^3/μL)</label>:
-    <input type="number" step="0.01" id="lymphocytes" name="lymphocytes" placeholder="0,08 - 0,8" autofocus="autofocus" /> <br/>
+  <br/>
+  <div class="box">
+    <form th:action="@{/reports/bloodExamUpload}" method="post">
+      <label for="description">Descrizione</label>:
+      <input type="text" id="description" name="description" autofocus="autofocus" /> <br />
+      <label for="examinationDate">Data svolgimento esame</label>:
+      <input type="date" id="examinationDate" name="examinationDate" autofocus="autofocus" /> <br />
+      <label for="ves">VES (mm/h)</label>:
+      <input type="number" step="0.01" id="ves" name="ves" placeholder="0,0 - 15,0" autofocus="autofocus" /> <br />
+      <label for="cpr">Proteina C reattiva (mg/L)</label>:
+      <input type="number" step="0.01" id="cpr" name="cpr" placeholder="0,0 - 10,0" autofocus="autofocus" /> <br />
+      <label for="calprotectin">Calprotectina (mg/Kg)</label>:
+      <input type="number" id="calprotectin" name="calprotectin" placeholder="0 - 10000" autofocus="autofocus" /> <br />
+      <label for="platelets">Piastrine (10^3/μL)</label>:
+      <input type="number" step="0.01" id="platelets" name="platelets" placeholder="150,0 - 450,0" autofocus="autofocus" /> <br />
+      <label for="neutrophils">Neutrofili (10^3/μL)</label>:
+      <input type="number" step="0.01" id="neutrophils" name="neutrophils" placeholder="1,9 - 7,5" autofocus="autofocus" /> <br />
+      <label for="lymphocytes">Linfociti (10^3/μL)</label>:
+      <input type="number" step="0.01" id="lymphocytes" name="lymphocytes" placeholder="0,08 - 0,8" autofocus="autofocus" /> <br/>
 
-    <input type="submit" name="action" value="Upload" />
-  </form>
+      <input class="btn_upload" type="submit" name="action" value="Upload" />
+    </form>
+  </div>
   <div
           th:if="${message != null}"
-          class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+          class="alert"
           role="alert">
-    [[${message}]]
+      [[${message}]]
   </div>
   <div>
     <p>Elenco dei tuoi esami del sangue <a href="bloodExams">qui</a>.</p>

@@ -5,30 +5,41 @@
     <title>File PDF</title>
 </head>
 <style>
-#docuTable {
-font-family: Arial, Helvetica, sans-serif;
-border-collapse: collapse;
-width: 50%;
-}
-
-#docuTable td, #docuTable th {
-border: 1px solid #ddd;
-padding: 8px;
-}
-
-#docuTable tr:nth-child(even){background-color: #f2f2f2;}
-
-#docuTable tr:hover {background-color: #ddd;}
-
-#docuTable th {
-padding-top: 12px;
-padding-bottom: 12px;
-text-align: left;
-color: black;
-}
+    #docuTable {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+    }
+    #docuTable td, #docuTable th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    #docuTable tr:nth-child(even){background-color: #f2f2f2;}
+    #docuTable tr:hover {background-color: #ddd;}
+    #docuTable th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        color: black;
+    }
+    .dot1, .dot2, .dot3 {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    p {
+        font-size: 18px;
+    }
 </style>
 <body>
     <h1>Elenco dei tuoi file</h1>
+    <div style="text-align:center">
+        <span class="dot1" style="background-color: #ADD8E6"></span>
+        <span class="dot2" style="background-color: #FAFAD2"></span>
+        <span class="dot3" style="background-color: #D3D3D3"></span>
+    </div>
     <!--    TABELLA DEI DOCUMENTI-->
     <div th:if="${files.size() > 0}">
         <table id="docuTable">
@@ -48,7 +59,7 @@ color: black;
     </div>
     <!--    Messaggio se nessun documento PDF è registrato a sistema per il paziente loggato.-->
     <div th:unless="${files.size() > 0}">
-        <span>Non hai ancora caricato nessun documento.</span>
+        <p>Non hai ancora caricato nessun documento.</p>
     </div>
     <!--    link di ritorno alla pagina principale-->
     <div>
