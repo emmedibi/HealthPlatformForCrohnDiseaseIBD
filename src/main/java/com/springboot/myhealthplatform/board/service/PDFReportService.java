@@ -36,11 +36,11 @@ public class PDFReportService {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         try{
             pdfReportRepository.findByDescriptionAndPatientId(fileName, patient.getId());
+            PDFReport fileDB = new PDFReport(fileName, file.getContentType(), file.getBytes(), patient);
+            return pdfReportRepository.save(fileDB);
         } catch(ValidationException e){
             throw e;
         }
-        PDFReport fileDB = new PDFReport(fileName, file.getContentType(), file.getBytes(), patient);
-        return pdfReportRepository.save(fileDB);
     }
 
     /**
@@ -58,11 +58,11 @@ public class PDFReportService {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         try{
             fileNameCheck(fileName, patient);
+            PDFReport fileDB = new PDFReport(fileName, file.getContentType(), file.getBytes(), patient, doctor);
+            return pdfReportRepository.save(fileDB);
         } catch(ValidationException e){
             throw e;
         }
-        PDFReport fileDB = new PDFReport(fileName, file.getContentType(), file.getBytes(), patient, doctor);
-        return pdfReportRepository.save(fileDB);
     }
 
     /**
