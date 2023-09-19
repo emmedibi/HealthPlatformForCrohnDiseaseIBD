@@ -65,12 +65,17 @@ public class PDFReportService {
         return pdfReportRepository.save(fileDB);
     }
 
+    /**
+     * Check if the PDF's name is present and if it already exists in the database.
+     * @param fileName the name displayed on the list of PDFs
+     * @param patient the patient related to the PDF uploaded
+     * @throws ValidationException exception thrown if fileName is empty or it's already present in the db
+     */
     public void fileNameCheck(String fileName, Patient patient) throws ValidationException{
         if(pdfReportRepository.findByDescriptionAndPatientId(fileName, patient.getId()) != null){
-            System.out.println("The pdf already exist for this patient");
             throw new ValidationException("The pdf already exist for this patient");
-        } else {
-            System.out.println("NOPE");
+        } else if(fileName.isEmpty() || fileName.isBlank()) {
+            throw new ValidationException("The pdf hasn't a name");
         }
     }
 
