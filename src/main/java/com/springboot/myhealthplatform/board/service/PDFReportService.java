@@ -4,6 +4,7 @@ import com.springboot.myhealthplatform.bean.Doctor;
 import com.springboot.myhealthplatform.bean.Patient;
 import com.springboot.myhealthplatform.board.bean.PDFReport;
 import com.springboot.myhealthplatform.board.repository.PDFReportRepository;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -33,6 +34,11 @@ public class PDFReportService {
     public PDFReport store(MultipartFile file, Patient patient) throws IOException {
         // recupero il nome del file caricato.
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        try{
+            pdfReportRepository.findByDescriptionAndPatientId(fileName, patient.getId());
+        } catch(ValidationException e){
+            throw e;
+        }
         PDFReport fileDB = new PDFReport(fileName, file.getContentType(), file.getBytes(), patient);
         return pdfReportRepository.save(fileDB);
     }
@@ -47,11 +53,25 @@ public class PDFReportService {
      * @return un oggetto di classe PDFReport salvato a sistema.
      * @throws IOException se il salvataggio non va a buon fine
      */
-    public PDFReport storeByDoctor(MultipartFile file, Patient patient, Doctor doctor) throws IOException {
+    public PDFReport storeByDoctor(MultipartFile file, Patient patient, Doctor doctor) throws IOException, ValidationException {
         // recupero il nome del file caricato.
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        try{
+            fileNameCheck(fileName, patient);
+        } catch(ValidationException e){
+            throw e;
+        }
         PDFReport fileDB = new PDFReport(fileName, file.getContentType(), file.getBytes(), patient, doctor);
         return pdfReportRepository.save(fileDB);
+    }
+
+    public void fileNameCheck(String fileName, Patient patient) throws ValidationException{
+        if(pdfReportRepository.findByDescriptionAndPatientId(fileName, patient.getId()) != null){
+            System.out.println("The pdf already exist for this patient");
+            throw new ValidationException("The pdf already exist for this patient");
+        } else {
+            System.out.println("NOPE");
+        }
     }
 
     /**

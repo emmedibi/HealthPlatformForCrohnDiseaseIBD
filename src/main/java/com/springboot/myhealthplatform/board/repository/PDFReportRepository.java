@@ -17,4 +17,6 @@ public interface PDFReportRepository extends JpaRepository<PDFReport, Integer> {
 
     Collection<PDFReport> findAllByPatientId(int patientId);
 
+    PDFReport findByDescriptionAndPatientId(String description, int patientId);
+
 }

@@ -100,10 +100,10 @@ public class PDFReportController {
             model.addAttribute("message", message);
         } catch(NullPointerException e){
             message = e.getMessage();
-            model.addAttribute("errorMessages", message);
+            model.addAttribute("message", message);
         } catch(ValidationException e){
             message = e.getMessage();
-            model.addAttribute("errorMessages", message);
+            model.addAttribute("message", message);
         } catch (Exception e) {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
             model.addAttribute("message", message);
